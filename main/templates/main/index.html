@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Django Site</title>
+    <title>Мой Блог</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             font-family: Arial, sans-serif;
-            color: #fff;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
         }
-
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            backdrop-filter: blur(10px);
+        .post {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 2px 2px 8px #eee;
+            word-wrap: break-word;   /* Важная строчка для переноса длинных слов */
+            overflow-wrap: break-word; /* На всякий случай для старых браузеров */
         }
-
-        h1 {
-            margin: 0;
-            font-size: 36px;
-            letter-spacing: 2px;
+        .post h2 {
+            margin: 0 0 10px 0;
+            color: #333;
         }
-
-        p {
+        .post .date {
+            font-size: 0.9em;
+            color: #999;
+        }
+        .post p {
             margin-top: 10px;
-            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🚀 Django is ready</h1>
-        <p>Твой HTML успешно подключён</p>
+    <h1>Мой Блог</h1>
+
+    {% for post in posts %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        <div class="date">{{ post.created_at|date:"d M Y H:i" }}</div>
+        <p>{{ post.content }}</p>
     </div>
+    {% empty %}
+    <p>Постов пока нет.</p>
+    {% endfor %}
+
 </body>
 </html>
